@@ -1,9 +1,9 @@
 <template>
 <div>
   <div class="about" v-for="(item,index) in items">
-    <h1> {{index}}</h1>
+    <h1> {{item}}</h1>
     <h2>{{item}}</h2>
-    <button>Add</button>
+    <button v-on:click="">{{index}}</button>
   </div>
 </div>
 </template>
@@ -37,7 +37,9 @@ $btColor: rgb(58, 88, 145);
   button {
     background-color: $btColor;
     color: white;
-    font-weight: 200%;
+    font-size: 200%;
+    width: 50%;
+    border-radius: 10px;
   }
 }
 </style>
