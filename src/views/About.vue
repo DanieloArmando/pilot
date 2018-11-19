@@ -13,7 +13,7 @@
   <div class="about" v-for="(item,index) in items">
     <h1> {{item}}</h1>
     <h2>{{item}}</h2>
-        <button v-on:click="count(item)">{{index}}</button>
+        <button>{{index}}</button>
 
   </div>
 </div>
@@ -29,16 +29,15 @@ export default {
     };
   },
   methods: {
-    count(item) {
-      this.$store.commit("add");
-      this.$store.commit("remove", item);
-      console.log(item + "" + this.$store.state.count);
-    },
     addUser() {
       console.log("Adding User," + this.str);
       this.$store.commit("addUser", this.str);
       console.log(this.$store.state.users);
     }
+  },
+
+  created: function() {
+    this.$store.commit("getUsers");
   }
 };
 </script>
@@ -82,6 +81,7 @@ $btColor: rgb(58, 88, 145);
 }
 .user {
   @extend %frame;
+  min-height: 200px;
 }
 </style>
 

@@ -5,19 +5,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0,
+
+    //users: JSON.parse(window.localStorage.getItem("users")),
     users: []
   },
   mutations: {
-    add(state) {
-      state.count++;
-    },
-    remove(state, item) {
-      state.count = item;
-    },
     addUser(state, user) {
       state.users.push(user);
+      window.localStorage.setItem("users", JSON.stringify(state.users));
+    },
+    getUsers(state) {
+      let str = window.localStorage.getItem("users");
+      if (str > 0) {
+        let json = JSON.parse(str);
+        state.users = json;
+        console.log(state.users);
+      }
+      console.log(str);
     }
+
   },
   actions: {
 
