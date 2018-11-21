@@ -1,20 +1,17 @@
 <template>
 <div>
-
+  <div class="container">
   <div class="about">
-    <h1>New User</h1>
+    <h1>Name</h1>
     <input v-on:enter="addUser" v-model="str" placerholder="..."> </input>
+    <div class="col-100">
     <button v-on:click="addUser">Add</button>
+    </div>
   </div>
   <div class="user" v-for="(user,index) in users">
     <h1> {{user}}</h1>
     <h2>{{user}}</h2>
   </div>
-  <div class="about" v-for="(item,index) in items">
-    <h1> {{item}}</h1>
-    <h2>{{item}}</h2>
-        <button>{{index}}</button>
-
   </div>
 </div>
 </template>
@@ -45,6 +42,39 @@ export default {
 <style lang="scss">
 $bgColor: rgb(30, 35, 44);
 $btColor: rgb(58, 88, 145);
+$bthColor: rgb(50, 29, 65);
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  animation: 1s slideIn;
+}
+
+.col-100 {
+  width: 100%;
+}
+
 %frame {
   background-color: $bgColor;
 
@@ -54,18 +84,27 @@ $btColor: rgb(58, 88, 145);
 
   h1 {
     font-weight: 500;
+    animation: fadeIn 1s;
   }
   h2 {
     font-weight: 100;
+    animation: fadeIn 2s;
   }
   button {
     background-color: $btColor;
+
     color: white;
     font-size: 200%;
-    width: 400px;
+    width: 300px;
     padding: 20px;
     border-radius: 10px;
+    border: 0px;
+    &:hover {
+      background-color: $bthColor;
+      transition: 1s;
+    }
   }
+
   input {
     width: 300px;
     height: 20px;
@@ -74,6 +113,7 @@ $btColor: rgb(58, 88, 145);
     padding: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    border: 0px;
   }
 }
 .about {
