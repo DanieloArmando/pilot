@@ -1,9 +1,17 @@
 <template>
 <div>
   <div class="container">
+    
+    <div class="blog" v-for="(blog,index) in blogs">
+      <div class="border">
+        <h3>{{blog.text}}</h3>
+      </div>
+      <img :src="blog.img"/>
+    </div>
+    
   <div class="about">
     <h1>Name</h1>
-    <input v-on:enter="addUser" v-model="str" placerholder="..."> </input>
+    <input v-on:enter="addUser" v-model="str" placeholder="..."> </input>
     <div class="col-100">
     <button v-on:click="addUser">Add</button>
     </div>
@@ -20,9 +28,10 @@
 export default {
   data: function() {
     return {
-      items: ["hello", "world", "yo"],
+      staff: this.$store.state.staff,
       str: "",
-      users: this.$store.state.users
+      users: this.$store.state.users,
+      blogs: this.$store.state.blogs
     };
   },
   methods: {
@@ -46,7 +55,7 @@ $bthColor: rgb(50, 29, 65);
 
 @keyframes slideIn {
   from {
-    transform: translateY(-50px);
+    transform: translateY(50px);
   }
   to {
     transform: translateY(0);
@@ -62,12 +71,13 @@ $bthColor: rgb(50, 29, 65);
 }
 
 body {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: $bgColor;
 }
 
 .container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   animation: 1s slideIn;
 }
 
@@ -77,13 +87,12 @@ body {
 
 %frame {
   background-color: $bgColor;
-
   color: white;
   min-height: 400px;
   padding: 20px;
 
   h1 {
-    font-weight: 500;
+    font-weight: 100;
     animation: fadeIn 1s;
   }
   h2 {
@@ -92,12 +101,13 @@ body {
   }
   button {
     background-color: $btColor;
-
     color: white;
-    font-size: 200%;
+    font-size: 120%;
+    font-weight: 200;
     width: 300px;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     border: 0px;
     &:hover {
       background-color: $bthColor;
@@ -114,6 +124,11 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border: 0px;
+    color: black;
+    &:hover {
+      background-color: cornflowerblue;
+      transition: 1s;
+    }
   }
 }
 .about {
@@ -122,6 +137,30 @@ body {
 .user {
   @extend %frame;
   min-height: 200px;
+  background-color: white;
+}
+.staff {
+  @extend %frame;
+  min-height: 200px;
+}
+.blog {
+  @extend %frame;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  img {
+    width: 100%;
+    display: block;
+    margin-top: -10px;
+  }
+  .border {
+    background-color: white;
+    h3 {
+      padding: 10px;
+      font-weight: 100;
+      color: rgb(58, 62, 70);
+    }
+  }
 }
 </style>
 
