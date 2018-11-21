@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 $bgColor: rgb(30, 35, 44);
 $btColor: rgb(58, 88, 145);
 $bthColor: rgb(50, 29, 65);
