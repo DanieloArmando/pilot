@@ -11,10 +11,6 @@
                     v-model="user.name" 
                     @keydown.enter="changeName([id, user.name])">
             </div>
-            {{$store.state.users}}
-            {{$route.params.user}}
-            {{user.name}}
-            {{$store.state.count}}
         </div>
     </div>
 </template>
@@ -25,8 +21,8 @@ import { mapMutations } from 'vuex'
 export default {
     data() {
         return {
-            id: this.$route.params.id,
-            user: this.$route.params.user
+            id: localStorage.getItem('id') ? localStorage.getItem('id') : this.$route.params.id,
+            user: localStorage.getItem('id') ? this.$store.state.staff[localStorage.getItem('id')] : this.$route.params.user
         }
     },
     methods: {
@@ -34,6 +30,18 @@ export default {
             'changeName',
             'loadUsers'
         ])
+    },
+    beforeRouteLeave(to, from, next){
+        if(JSON.parse(localStorage.getItem('staff'))){
+            this.$store.state.staff = JSON.parse(localStorage.getItem('staff'))
+        }else {
+            this.$store.state.staff = user.staff
+        }
+        localStorage.removeItem('id')
+        next();
+    },
+    created(){
+        localStorage.setItem('id', this.$route.params.id)
     }
 }
 </script>
