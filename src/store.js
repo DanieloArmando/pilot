@@ -14,9 +14,9 @@ export default new Vuex.Store({
     //usersDaniel: JSON.parse(window.localStorage.getItem("users")),
     users: [],
     blogs: [
-      { id: 0, name: "Daniel", text: "Coolio", img: "https://66.media.tumblr.com/7a340bff5631b3ae04b122122a02f8f3/tumblr_pgxipwFC9V1vm9ssvo1_500.png" }
-      , { id: 1, name: "Olle", text: "Spännande Tider", img: "https://66.media.tumblr.com/2dc1b616409956d3bb67c97feaea4214/tumblr_p45c8hwRE41sfls6mo1_500.gif" }
-      , { id: 2, name: "Lisa", text: "Hmm", img: "https://66.media.tumblr.com/74b0ce3e46982dff6771da76e218c98a/tumblr_phlczxJoAU1rxqtybo1_500.jpg" }
+      { id: 0, name: "Daniel", text: "Coolio", img: "https://66.media.tumblr.com/08ba7c2165b5d9de3791913c0f1d66d6/tumblr_pii0roQFkA1vdi84io1_1280.jpg" }
+      , { id: 1, name: "Olle", text: "Spännande Tider", img: "https://66.media.tumblr.com/f69c7bcf35f418be8ea13f32facf2330/tumblr_p9kjxqkjRq1qdtql4o1_500.png" }
+      , { id: 2, name: "Lisa", text: "Hmm", img: "https://66.media.tumblr.com/f0581aa75bd5349d99fd8644f5bcb2ac/tumblr_pbs6ecmiL61qdtql4o1_500.png" }
 
     ]
   },
@@ -41,6 +41,24 @@ export default new Vuex.Store({
         console.log(state.users);
       }
       console.log(str);
+    },
+
+    postBlog(state, blog) {
+      state.blogs.push(blog);
+      let reqinfo = {
+        credentials: "same-origin",
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(blog),
+      }
+      fetch('http://localhost:3000/api/blog', reqinfo).then((res) => {
+        return res.json();
+      }).then((res) => {
+        console.log(JSON.stringify(res));
+      });
     }
 
   },

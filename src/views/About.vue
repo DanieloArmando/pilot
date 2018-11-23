@@ -7,19 +7,30 @@
         <h3>{{blog.text}}</h3>
       </div>
       <img :src="blog.img"/>
+            <div class="border-bottom">
+        <h3>{{blog.text}}</h3>
+      </div>
     </div>
     
-  <div class="about">
-    <h1>Name</h1>
-    <input v-on:enter="addUser" v-model="str" placeholder="..."> </input>
+  <div class="post">
+    <h1>Blog</h1>
+    <input v-model="blog.text" placeholder="Title"/>
+    <input v-model="blog.img" placeholder="IMG URL"/>
     <div class="col-100">
-    <button v-on:click="addUser">Add</button>
+    <button v-on:click="postBlog">Post</button>
     </div>
   </div>
-  <div class="user" v-for="(user,index) in users">
-    <h1> {{user}}</h1>
-    <h2>{{user}}</h2>
-  </div>
+
+    <div class="blog">
+      <div class="border">
+        <h3>{{blog.text}}</h3>
+      </div>
+      <img :src="blog.img"/>
+          <div class="border-bottom">
+            <h3>{{blog.text}}</h3>
+      </div>
+    </div>
+
   </div>
 </div>
 </template>
@@ -29,7 +40,11 @@ export default {
   data: function() {
     return {
       staff: this.$store.state.staff,
-      str: "",
+      blog: {
+        id: 0,
+        text: "",
+        img: ""
+      },
       users: this.$store.state.users,
       blogs: this.$store.state.blogs
     };
@@ -39,6 +54,15 @@ export default {
       console.log("Adding User," + this.str);
       this.$store.commit("addUser", this.str);
       console.log(this.$store.state.users);
+    },
+    postBlog() {
+      this.blog.id = this.blogs.length;
+      let temp = {
+        id: this.blog.id,
+        text: this.blog.text,
+        img: this.blog.img
+      };
+      this.$store.commit("postBlog", temp);
     }
   },
 
@@ -69,9 +93,11 @@ $bthColor: rgb(50, 29, 65);
     opacity: 1;
   }
 }
-
+@import url("https://fonts.googleapis.com/css?family=Crimson+Text|Dosis:200|Quicksand:300");
 body {
   background-color: $bgColor;
+  //
+  font-family: "Times New Roman", Times, serif;
 }
 
 .container {
@@ -88,13 +114,16 @@ body {
 %frame {
   background-color: $bgColor;
   color: white;
-  min-height: 400px;
+  /* min-height: 400px; */
   padding: 20px;
-
+  font-family: "Quicksand", sans-serif;
+  margin-left: auto;
+  margin-right: auto;
   h1 {
     font-weight: 100;
     animation: fadeIn 1s;
   }
+
   h2 {
     font-weight: 100;
     animation: fadeIn 2s;
@@ -104,7 +133,7 @@ body {
     color: white;
     font-size: 120%;
     font-weight: 200;
-    width: 300px;
+    width: 100%;
     padding: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -116,23 +145,26 @@ body {
   }
 
   input {
-    width: 300px;
+    width: 100%;
     height: 20px;
     text-align: center;
     font-size: 20px;
     padding: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     border: 0px;
     color: black;
     &:hover {
       background-color: cornflowerblue;
       transition: 1s;
     }
+    &:first-child {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
   }
 }
-.about {
+.post {
   @extend %frame;
+  width: 500px;
 }
 .user {
   @extend %frame;
@@ -146,19 +178,33 @@ body {
 .blog {
   @extend %frame;
   width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+
   img {
     width: 100%;
     display: block;
     margin-top: -10px;
+    margin-bottom: -20px;
   }
   .border {
     background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
     h3 {
       padding: 10px;
-      font-weight: 100;
+      font-weight: 300;
       color: rgb(58, 62, 70);
+      font-family: "Crimson Text", serif;
+    }
+  }
+  .border-bottom {
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    h3 {
+      padding: 10px;
+      color: rgb(58, 62, 70);
+      font-family: "Crimson Text", serif;
     }
   }
 }
